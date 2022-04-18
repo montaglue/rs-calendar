@@ -1,10 +1,10 @@
 use user_interface::{manager::UIManager, console::ConsoleUI, UI};
 
-pub mod world_model;
+pub mod combinatorics_engine;
+pub mod world;
 pub mod data;
 pub mod prediction;
 pub mod user_interface;
-pub mod utils;
 
 fn main() {
     let mut ui_manager = Box::new(UIManager::default());

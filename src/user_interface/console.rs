@@ -1,10 +1,11 @@
+use chrono::Utc;
 use repl_rs::{Command, Parameter, Result, Value};
 use repl_rs::{Convert, Repl};
 use std::collections::HashMap;
 
 use crate::data::Data;
 use crate::prediction;
-use crate::utils::time::Time;
+use crate::world::Time;
 
 use super::UI;
 
@@ -51,8 +52,8 @@ fn change_flow(args: HashMap<String, Value>, context: &mut Data) -> Result<Optio
 }
 
 fn predict(_: HashMap<String, Value>, context: &mut Data) -> Result<Option<String>> {
-    Ok(if let Some(wm) = prediction::predict(context, Time::now()) {
-        Some(format!("{}", wm))
+    Ok(if let Some(wm) = prediction::predict(context, Time::from(Utc::now())) {
+        Some(format!("{:?}", wm))
     } else {
         None
     })

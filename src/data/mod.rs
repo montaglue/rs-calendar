@@ -1,16 +1,14 @@
 use std::collections::HashMap;
 
-use crate::utils::time::Time;
+use crate::world::Time;
 
-use self::{task::{Task, Stage, TaskTime}, calendar::Calendar};
+use self::task::Task;
 
 pub mod task;
-pub mod calendar;
 
 pub struct Data {
     id_counter: usize,
-    current_flow: String,
-    calendar: Calendar,
+    current_flow_id: usize,
     tasks: HashMap<usize, Task>,
     flow_counter: HashMap<String, usize>,
 }
@@ -20,16 +18,7 @@ impl Data {
         let id = self.id_counter;
         self.id_counter += 1;
 
-        let new_task = Task {
-            id,
-            name,
-            description,
-            flow: self.current_flow.clone(),
-            flow_position: *self.flow_counter.get(&self.current_flow).unwrap_or(&0),
-            stage: Stage::NotStarted,
-        };
-
-        self.calendar.insert(TaskTime::None, id);
+        let new_task = todo!();
 
         self.tasks.insert(id, new_task);
 
@@ -37,18 +26,11 @@ impl Data {
     }
 
     pub fn current_task(&self, time: Time) -> Option<&Task> {
-        let current_tasks = Calendar::current_task(&self.calendar, time);
-        for i in current_tasks {
-            if let Some(task) = self.tasks.get(&i.1) {
-                return Some(task);
-            }
-        }
-
-        None
+        todo!()
     }
 
     pub fn change_flow(&mut self, flow_name: String) {
-        self.current_flow = flow_name;
+        self.current_flow_id = todo!();
     }
 
     pub fn change_task<F>(&mut self, id: usize, f: F)
@@ -67,8 +49,7 @@ impl Default for Data {
     fn default() -> Self {
         Self { 
             id_counter: Default::default(), 
-            current_flow: format!("other"), 
-            calendar: Default::default(), 
+            current_flow_id: 0, 
             tasks: Default::default(), 
             flow_counter: Default::default(), 
         }

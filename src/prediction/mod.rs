@@ -1,7 +1,7 @@
-use crate::{data::Data, utils::time::Time, world_model::WorldModel};
+use chrono::{DateTime, Utc};
 
+use crate::{data::Data, world::state::WorldState};
 
-
-pub fn predict(data: &mut Data, time: Time) -> Option<WorldModel> {
-    Some(WorldModel::new(data.current_task(time)?))
+pub fn predict(data: &mut Data, time: DateTime<Utc>) -> Option<WorldState> {
+    todo!()
 }
